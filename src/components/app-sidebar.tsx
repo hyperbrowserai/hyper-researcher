@@ -1,11 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRef } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
-  Bot,
   MessageSquare,
   Search,
   Settings,
@@ -47,7 +47,14 @@ export function AppSidebar({ collapsed, onToggleCollapse }: AppSidebarProps) {
       {/* Header */}
       <div className="flex items-center gap-2 px-4 pt-4 pb-3">
         <div className="grid place-items-center h-8 w-8 rounded-full bg-zinc-900 border border-white/10 flex-shrink-0">
-          <Bot className="h-4 w-4 text-zinc-300" />
+          <Image
+            src="/logoLight.svg"
+            alt="HyperResearcher logo"
+            width={16}
+            height={16}
+            className="h-4 w-4"
+            priority
+          />
         </div>
         <span
           className={`

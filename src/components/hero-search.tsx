@@ -1,15 +1,10 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import {
-  ArrowUp,
-  ChevronDown,
-  Paperclip,
-  Search,
-  Sparkles,
-} from "lucide-react";
+import { ArrowUp, ChevronDown, Paperclip, Search } from "lucide-react";
 import {
   DropdownMenu,
   DropdownMenuTrigger,
@@ -28,7 +23,14 @@ export function HeroSearch({ onSubmit }: HeroSearchProps) {
     <div className="relative flex w-full flex-col items-center gap-8">
       <div className="flex items-center gap-3 text-4xl md:text-5xl font-semibold tracking-tight">
         <div className="grid place-items-center h-12 w-12 rounded-full bg-zinc-900 border border-white/10">
-          <Sparkles className="h-6 w-6 text-zinc-200" />
+          <Image
+            src="/logoLight.svg"
+            alt="HyperResearcher logo"
+            width={24}
+            height={24}
+            className="h-6 w-6"
+            priority
+          />
         </div>
         <div>HyperResearcher</div>
       </div>
