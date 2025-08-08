@@ -99,9 +99,9 @@ export function HeroSearch({ onSubmit }: HeroSearchProps) {
           "Can you create an itinerary for a 10-day Japan trip?",
           "What are the top 2025 noise-cancelling headphones?",
           "What are some ETFs with the highest opportunity for growth?",
-        ].map((s, i) => (
+        ].map((s) => (
           <button
-            key={i}
+            key={s}
             type="button"
             onClick={() => onSubmit(s)}
             className="group flex w-full items-center gap-3 rounded-xl border border-white/5 bg-black/20 px-3 py-2 text-left text-zinc-300 hover:bg-white/5"

@@ -30,7 +30,7 @@ export function MessageList({ messages }: { messages: UIMessage[] }) {
                     className="rounded-xl border border-white/10 overflow-hidden"
                   >
                     <Image
-                      src={part.url || "/placeholder.svg"}
+                      src={part.url}
                       width={1024}
                       height={1024}
                       className="h-auto w-full"

@@ -27,7 +27,7 @@ export function AppSidebar({ collapsed, onToggleCollapse }: AppSidebarProps) {
       const startX = startXRef.current;
       startXRef.current = null;
       window.removeEventListener("mouseup", onUp);
-      if (startX == null) return;
+      if (startX === null) return;
       const delta = (ev.clientX ?? startX) - startX;
       if (delta < -10) onToggleCollapse?.(true);
       else if (delta > 10) onToggleCollapse?.(false);
