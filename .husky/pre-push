@@ -1,0 +1,2 @@
+npm run lint:ci
+npm run typecheck

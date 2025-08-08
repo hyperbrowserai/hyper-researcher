@@ -1,81 +1,115 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { ArrowRight, Mic, Search } from "lucide-react";
+import { ArrowUp, ChevronDown, Paperclip, Search } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuTrigger,
+  DropdownMenuContent,
+  DropdownMenuItem,
+} from "@/components/ui/dropdown-menu";
 
-type HeroSearchProps = {
+interface HeroSearchProps {
   onSubmit: (query: string) => void;
-  title?: string;
-  subtitle?: string;
-};
+}
 
-export function HeroSearch({ onSubmit, title, subtitle }: HeroSearchProps) {
+export function HeroSearch({ onSubmit }: HeroSearchProps) {
   const [query, setQuery] = useState("");
 
   return (
-    <div className="relative min-h-[60svh] text-white overflow-hidden">
-      <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(75,85,99,0.15),transparent_40%),radial-gradient(circle_at_80%_30%,rgba(59,130,246,0.15),transparent_40%),radial-gradient(circle_at_50%_80%,rgba(16,185,129,0.12),transparent_40%)]" />
+    <div className="relative flex w-full flex-col items-center gap-8">
+      <div className="flex items-center gap-3 text-4xl md:text-5xl font-semibold tracking-tight">
+        <div className="grid place-items-center h-12 w-12 rounded-full bg-zinc-900 border border-white/10">
+          <Image
+            src="/logoLight.svg"
+            alt="HyperResearcher logo"
+            width={24}
+            height={24}
+            className="h-6 w-6"
+            priority
+          />
+        </div>
+        <div>HyperResearcher</div>
+      </div>
 
-      <div className="relative mx-auto flex max-w-5xl flex-col items-center px-6 pt-32 pb-10">
-        <div className="mb-10 text-center">
-          <div className="text-5xl font-semibold tracking-tight">
-            {title ?? "Hyper Research"}
-          </div>
-          <div className="mt-3 text-zinc-400">
-            {subtitle ?? "Deep research with multi‑modal reasoning"}
-          </div>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          onSubmit(query.trim());
+        }}
+        className="w-full rounded-3xl border border-white/10 bg-zinc-900/60 backdrop-blur px-4 py-3 shadow-[0_0_0_1px_rgba(255,255,255,0.04)]"
+      >
+        <div className="px-1 pb-3">
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="What would you like to know?"
+            className="h-12 rounded-xl border-0 bg-transparent text-zinc-100 placeholder:text-zinc-500 focus-visible:ring-0"
+          />
         </div>
 
-        <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            onSubmit(query.trim());
-          }}
-          className="w-full max-w-3xl rounded-2xl border border-zinc-800 bg-zinc-900/60 backdrop-blur p-3 shadow-[0_0_0_1px_rgba(255,255,255,0.03)]"
-        >
-          <div className="flex items-center gap-3 px-2">
-            <Search className="size-5 text-zinc-500" />
-            <Input
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="What do you want to know?"
-              className="flex-1 border-0 bg-transparent text-zinc-100 placeholder:text-zinc-500 focus-visible:ring-0"
-            />
-            <Button
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <button
               type="button"
-              variant="ghost"
-              size="icon"
-              aria-label="Voice"
+              className="grid place-items-center h-9 w-9 rounded-full bg-black/50 border border-white/10 text-zinc-300"
+              aria-label="Attach"
+              title="Attach"
             >
-              <Mic className="size-5" />
-            </Button>
-            <Button
-              type="submit"
-              className="gap-2 text-black"
-              variant="default"
-            >
-              DeepSearch
-              <ArrowRight className="size-4" />
-            </Button>
+              <Paperclip className="h-4 w-4" />
+            </button>
           </div>
 
-          <div className="mt-3 flex flex-wrap items-center gap-2 px-2 text-xs text-zinc-400">
-            <span className="rounded-full border border-zinc-800 bg-black/40 px-2 py-1">
-              Web
-            </span>
-            <span className="rounded-full border border-zinc-800 bg-black/40 px-2 py-1">
-              Papers
-            </span>
-            <span className="rounded-full border border-zinc-800 bg-black/40 px-2 py-1">
-              Code
-            </span>
-            <span className="rounded-full border border-zinc-800 bg-black/40 px-2 py-1">
-              News
-            </span>
+          <div className="flex items-center gap-2">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  type="button"
+                  variant="ghost"
+                  className="h-9 rounded-full border border-white/10 bg-black/50 text-zinc-200 gap-1"
+                >
+                  Model
+                  <ChevronDown className="h-4 w-4 text-zinc-400" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="min-w-40">
+                <DropdownMenuItem>Model A</DropdownMenuItem>
+                <DropdownMenuItem>Model B</DropdownMenuItem>
+                <DropdownMenuItem>Fast</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <Button
+              type="submit"
+              className="h-11 w-11 rounded-full bg-zinc-800 hover:bg-zinc-700 border border-white/10 p-0"
+              aria-label="Send"
+            >
+              <ArrowUp className="h-4 w-4 text-zinc-100" />
+            </Button>
           </div>
-        </form>
+        </div>
+      </form>
+
+      <div className="w-full space-y-3">
+        {[
+          "What are the economics of the current global egg shortage?",
+          "Can you create an itinerary for a 10-day Japan trip?",
+          "What are the top 2025 noise-cancelling headphones?",
+          "What are some ETFs with the highest opportunity for growth?",
+        ].map((s) => (
+          <button
+            key={s}
+            type="button"
+            onClick={() => onSubmit(s)}
+            className="group flex w-full items-center gap-3 rounded-xl border border-white/5 bg-black/20 px-3 py-2 text-left text-zinc-300 hover:bg-white/5"
+          >
+            <Search className="h-4 w-4 text-zinc-500 group-hover:text-zinc-300" />
+            <span className="truncate">{s}</span>
+          </button>
+        ))}
       </div>
     </div>
   );
